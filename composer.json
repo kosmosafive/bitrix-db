@@ -1,6 +1,6 @@
 {
   "name": "kosmosafive/bitrix-db",
-  "description": "Kosmos: Bitrix Database",
+  "description": "Bitrix Database",
   "license": "MIT",
   "homepage": "https://github.com/kosmosafive/bitrix-db",
   "type": "library",
@@ -27,11 +27,11 @@
     "ramsey/uuid": "^4.9"
   },
   "require-dev": {
-    "friendsofphp/php-cs-fixer": "^3.82"
+    "friendsofphp/php-cs-fixer": "^3.86"
   },
   "autoload": {
     "psr-4": {
-      "Kosmos\\Bitrix\\DB\\": "src/"
+      "Kosmosafive\\Bitrix\\DB\\": "src/"
     }
   }
 }

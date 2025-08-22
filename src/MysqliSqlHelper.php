@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB;
+namespace Kosmosafive\Bitrix\DB;
 
 use Bitrix\Main\ArgumentTypeException;
 use Bitrix\Main\DB;

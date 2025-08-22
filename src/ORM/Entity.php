@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB\ORM;
+namespace Kosmosafive\Bitrix\DB\ORM;
 
 use Bitrix\Main\DB\SqlQueryException;
 use Bitrix\Main\ORM;
