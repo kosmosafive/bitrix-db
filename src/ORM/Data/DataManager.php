@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB\ORM\Data;
+namespace Kosmosafive\Bitrix\DB\ORM\Data;
 
 use Bitrix\Main\Application;
 use Bitrix\Main\ORM\Data\DataManager as BaseDataManager;
-use Kosmos\Bitrix\DB\MappableInterface;
-use Kosmos\Bitrix\DB\ORM\Entity;
+use Kosmosafive\Bitrix\DB\MappableInterface;
+use Kosmosafive\Bitrix\DB\ORM\Entity;
 
 abstract class DataManager extends BaseDataManager
 {

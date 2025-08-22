@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB\Structure;
+namespace Kosmosafive\Bitrix\DB\Structure;
 
 use Closure;
 use ReturnTypeWillChange;

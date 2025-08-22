@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB\ORM\Fields;
+namespace Kosmosafive\Bitrix\DB\ORM\Fields;
 
 use Bitrix\Main\DB\SqlExpression;
 use Bitrix\Main\ORM\Fields\StringField;

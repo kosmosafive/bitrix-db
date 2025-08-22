@@ -1,4 +1,4 @@
-# Kosmos: Bitrix Database
+# Bitrix Database
 
 Расширение соединения с базой данных Bitrix (MysqliConnection).
 
@@ -16,18 +16,18 @@ if (file_exists($vendorAutoload)) {
 'connections' => [
             'value' => [
                     'default' => [
-                            'className' => '\\Kosmos\\Bitrix\\DB\\MysqliConnection',
+                            'className' => '\\Kosmosafive\\Bitrix\\DB\\MysqliConnection',
 // ...
 ```
 
 ## Использование
 
-В качества класса DataManager используется `Kosmos\Bitrix\DB\ORM\Data\DataManager`.
+В качества класса DataManager используется `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`.
 
 ### Индексы
 
-В классе, описывающем таблицу (наследник `Kosmos\Bitrix\DB\ORM\Data\DataManager`), 
-необходимо реализовать интерфейс `Kosmos\Bitrix\DB\ORM\Index\IndexInterface`.
+В классе, описывающем таблицу (наследник `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`), 
+необходимо реализовать интерфейс `Kosmosafive\Bitrix\DB\ORM\Index\IndexInterface`.
 
 ```php
 public static function getIndexConfigurationCollection(): ConfigurationCollection
@@ -69,7 +69,7 @@ $entity->dropForeignKeys();
 
 ### Поля
 
-Для маппинга кастомных полей в классе, описывающем таблицу (наследник `Kosmos\Bitrix\DB\ORM\Data\DataManager`), 
+Для маппинга кастомных полей в классе, описывающем таблицу (наследник `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`), 
 необходимо модифицировать метод `getMap()`.
 
 ```php
@@ -85,13 +85,13 @@ public static function getMap(): array
 
 #### Boolean
 
-`Kosmos\Bitrix\DB\ORM\Fields\BooleanField`
+`Kosmosafive\Bitrix\DB\ORM\Fields\BooleanField`
 
 Поле, хранящее булево значение. Без возможности указания замещающего значения для true \ false.
 
 #### Uuid
 
-`Kosmos\Bitrix\DB\ORM\Fields\UuidField`
+`Kosmosafive\Bitrix\DB\ORM\Fields\UuidField`
 
 Поле, хранящее uuid. Можно использовать в качестве идентификатора.
 
@@ -108,6 +108,10 @@ SampleTable::query()
 
 #### Datetime
 
-`Kosmos\Bitrix\DB\ORM\Fields\DatetimeField`
+`Kosmosafive\Bitrix\DB\ORM\Fields\DatetimeField`
 
 Поле, хранящее дату и время. Может хранить миллисекунды (size = 6).
+
+## Миграция
+
+* [Миграция с 1.x на 2.0](doc/migration/2.0.md)

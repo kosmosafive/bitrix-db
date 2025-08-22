@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Kosmos\Bitrix\DB\ORM\Index;
+namespace Kosmosafive\Bitrix\DB\ORM\Index;
 
-use Kosmos\Bitrix\DB\Structure\Collection;
+use Kosmosafive\Bitrix\DB\Structure\Collection;
 
 class ConfigurationCollection extends Collection
 {
