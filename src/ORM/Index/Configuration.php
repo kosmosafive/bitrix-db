@@ -4,20 +4,37 @@ declare(strict_types=1);
 
 namespace Kosmosafive\Bitrix\DB\ORM\Index;
 
+use Bitrix\Main\ORM\Data\DataManager;
 use Bitrix\Main\ORM\Fields\ScalarField;
+use InvalidArgumentException;
 
 class Configuration
 {
     protected ?FieldCollection $fieldCollection;
+    protected readonly ?string $indexName;
 
     public function __construct(
+        /**
+         * @var class-string<DataManager> $className
+         */
         string $className,
         array $fieldList,
-        protected readonly ?string $indexName = null
+        ?string $indexName = null
     ) {
+        if (!is_subclass_of($className, DataManager::class)) {
+            throw new InvalidArgumentException("The class " . $className . " must be a subclass of " . DataManager::class);
+        }
+
+        $fieldList = array_filter(array_unique($fieldList));
+
+        if ($indexName) {
+            $indexName = trim($indexName);
+        }
+        $this->indexName = $indexName;
+
         $this->fieldCollection = new FieldCollection();
 
-        $fieldMap = array_fill_keys(array_unique($fieldList), null);
+        $fieldMap = array_fill_keys($fieldList, null);
         foreach ($className::getMap() as $field) {
             if (
                 !($field instanceof ScalarField)
@@ -29,7 +46,9 @@ class Configuration
             $fieldMap[$field->getName()] = $field;
         }
 
-        $this->fieldCollection->add(...array_filter($fieldMap, static fn ($value) => !empty($value)));
+        foreach ($fieldMap as $field) {
+            $this->fieldCollection->add($field);
+        }
     }
 
     public function getColumnList(): array

@@ -24,7 +24,8 @@
   ],
   "require": {
     "php": ">=8.4",
-    "ramsey/uuid": "^4.9"
+    "ramsey/uuid": "^4.9",
+    "kosmosafive/bitrix-ds": "^1.3"
   },
   "require-dev": {
     "friendsofphp/php-cs-fixer": "^3.86"
