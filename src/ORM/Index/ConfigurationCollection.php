@@ -4,8 +4,12 @@ declare(strict_types=1);
 
 namespace Kosmosafive\Bitrix\DB\ORM\Index;
 
-use Kosmosafive\Bitrix\DB\Structure\Collection;
+use InvalidArgumentException;
+use Kosmosafive\Bitrix\DS\Collection;
 
+/**
+ * @template-extends Collection<ConfigurationCollection>
+ */
 class ConfigurationCollection extends Collection
 {
     public function __construct(
@@ -14,9 +18,12 @@ class ConfigurationCollection extends Collection
         parent::__construct();
     }
 
-    public function add(array $fieldList, ?string $indexName = null): ConfigurationCollection
+    public function add(mixed $value, ?string $indexName = null): ConfigurationCollection
     {
-        $this->values[] = new Configuration($this->className, array_unique($fieldList), $indexName);
-        return $this;
+        if (!is_array($value)) {
+            throw new InvalidArgumentException("Value must be an array");
+        }
+
+        return parent::add(new Configuration($this->className, $value, $indexName));
     }
 }

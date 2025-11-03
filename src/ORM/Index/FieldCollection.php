@@ -5,16 +5,17 @@ declare(strict_types=1);
 namespace Kosmosafive\Bitrix\DB\ORM\Index;
 
 use Bitrix\Main\ORM\Fields\ScalarField;
-use Kosmosafive\Bitrix\DB\Structure\Collection;
+use InvalidArgumentException;
+use Kosmosafive\Bitrix\DS\Collection;
 
 class FieldCollection extends Collection
 {
-    public function add(ScalarField ...$fieldList): FieldCollection
+    public function add(mixed $value): FieldCollection
     {
-        foreach ($fieldList as $field) {
-            $this->values[] = $field;
+        if (!$value instanceof ScalarField) {
+            throw new InvalidArgumentException("This collection only accepts instances of " . ScalarField::class);
         }
 
-        return $this;
+        return parent::add($value);
     }
 }
