@@ -8,6 +8,8 @@ use Bitrix\Main\ArgumentTypeException;
 use Bitrix\Main\DB;
 use Bitrix\Main\ObjectException;
 use Bitrix\Main\ORM\Fields\ScalarField;
+use Bitrix\Main\ORM\Fields\Validators;
+use Bitrix\Main\SystemException;
 use Bitrix\Main\Type;
 
 class MysqliSqlHelper extends DB\MysqliSqlHelper
@@ -44,6 +46,10 @@ class MysqliSqlHelper extends DB\MysqliSqlHelper
         throw new ArgumentTypeException('value', '\Bitrix\Main\Type\Date');
     }
 
+    /**
+     * @throws ArgumentTypeException
+     * @throws SystemException
+     */
     public function getColumnTypeByField(ScalarField $field): string
     {
         if ($field instanceof ORM\Fields\DatetimeField) {
@@ -60,6 +66,18 @@ class MysqliSqlHelper extends DB\MysqliSqlHelper
 
         if ($field instanceof ORM\Fields\BooleanField) {
             return 'boolean';
+        }
+
+        if ($field instanceof ORM\Fields\CharField) {
+            $defaultLength = false;
+            foreach ($field->getValidators() as $validator) {
+                if ($validator instanceof Validators\LengthValidator) {
+                    if ($defaultLength === false || $defaultLength > $validator->getMax()) {
+                        $defaultLength = $validator->getMax();
+                    }
+                }
+            }
+            return 'char(' . ($defaultLength > 0 ? $defaultLength : 255) . ')';
         }
 
         return parent::getColumnTypeByField($field);
