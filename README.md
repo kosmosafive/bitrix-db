@@ -40,7 +40,7 @@ public static function getIndexConfigurationCollection(): ConfigurationCollectio
 
 Порядок полей в индексе **важен**.
 
-Создать индекс:
+Создать индекс (вызывается в createDbTable()):
 
 ```php
 $entity = SampleTable::getEntity();
@@ -53,7 +53,7 @@ $entity->createAdditionalIndexes();
 
 Связи вычисляются автоматически относительно полей типа `\Bitrix\Main\ORM\Fields\Relations\Reference`.
 
-Для создания связей выполнить:
+Для создания связей выполнить (вызывается в createDbTable()):
 
 ```php
 $entity = SampleTable::getEntity();
@@ -65,6 +65,53 @@ $entity->createForeignKeys();
 ```php
 $entity = SampleTable::getEntity();
 $entity->dropForeignKeys();
+```
+
+### Ограничения
+
+В классе, описывающем таблицу (наследник `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`),
+необходимо реализовать интерфейс `Kosmosafive\Bitrix\DB\ORM\Constraint\ConstraintableInterface`.
+
+```php
+public static function getConstraintCollection(): ConstraintCollection
+{
+    return new ConstraintCollection()
+        ->add(new Unique('user_entity', 'USER_ID', 'ENTITY_ID'));
+}
+```
+
+Создать ограничения (вызывается в createDbTable()):
+
+```php
+$entity = SampleTable::getEntity();
+$entity->createConstraints();
+```
+
+#### Check
+
+`Kosmosafive\Bitrix\DB\ORM\Constraint\Check`
+
+Проверка переданного условия.
+
+```php
+new Chech(
+    'price',
+    'PRICE > 0'
+);
+```
+
+#### Unique
+
+`Kosmosafive\Bitrix\DB\ORM\Constraint\Unique`
+
+Проверка уникальности одного или нескольких полей.
+
+```php
+new Unique(
+    'user_entity',
+    'USER_ID',
+    'ENTITY_ID'
+);
 ```
 
 ### Поля
@@ -89,6 +136,24 @@ public static function getMap(): array
 
 Поле, хранящее булево значение. Без возможности указания замещающего значения для true \ false.
 
+#### Char
+
+`Kosmosafive\Bitrix\DB\ORM\Fields\CharField`
+
+Строка с фиксированной длиной.
+
+#### Datetime
+
+`Kosmosafive\Bitrix\DB\ORM\Fields\DatetimeField`
+
+Поле, хранящее дату и время. Может хранить миллисекунды (size = 6).
+
+#### Unsigned Integer
+
+`Kosmosafive\Bitrix\DB\ORM\Fields\UnsignedIntegerField`
+
+Беззнаковое целое.
+
 #### Uuid
 
 `Kosmosafive\Bitrix\DB\ORM\Fields\UuidField`
@@ -105,12 +170,6 @@ $uuid = Uuid::fromString($value)->getBytes();
 SampleTable::query()
     ->where('ID', $uuid);
 ```
-
-#### Datetime
-
-`Kosmosafive\Bitrix\DB\ORM\Fields\DatetimeField`
-
-Поле, хранящее дату и время. Может хранить миллисекунды (size = 6).
 
 ## Миграция
 

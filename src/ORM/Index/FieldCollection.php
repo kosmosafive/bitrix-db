@@ -8,8 +8,15 @@ use Bitrix\Main\ORM\Fields\ScalarField;
 use InvalidArgumentException;
 use Kosmosafive\Bitrix\DS\Collection;
 
+/**
+ * @template-extends Collection<ScalarField>
+ */
 class FieldCollection extends Collection
 {
+    /**
+     * @param ScalarField $value
+     * @return FieldCollection
+     */
     public function add(mixed $value): FieldCollection
     {
         if (!$value instanceof ScalarField) {
