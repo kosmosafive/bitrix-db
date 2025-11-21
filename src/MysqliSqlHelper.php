@@ -80,6 +80,16 @@ class MysqliSqlHelper extends DB\MysqliSqlHelper
             return 'char(' . ($defaultLength > 0 ? $defaultLength : 255) . ')';
         }
 
+        if ($field instanceof ORM\Fields\UnsignedIntegerField) {
+            $typeBySize = match ($field->getSize()) {
+                2 => 'smallint',
+                8 => 'bigint',
+                default => 'int'
+            };
+
+            return 'unsigned ' . $typeBySize;
+        }
+
         return parent::getColumnTypeByField($field);
     }
 }
