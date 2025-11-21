@@ -87,7 +87,7 @@ class MysqliSqlHelper extends DB\MysqliSqlHelper
                 default => 'int'
             };
 
-            return 'unsigned ' . $typeBySize;
+            return $typeBySize . ' unsigned';
         }
 
         return parent::getColumnTypeByField($field);
