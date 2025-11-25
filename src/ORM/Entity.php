@@ -156,6 +156,5 @@ class Entity extends \Bitrix\Main\ORM\Entity
 
         $this->createAdditionalIndexes();
         $this->createConstraints();
-        $this->createForeignKeys();
     }
 }

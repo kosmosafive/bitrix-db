@@ -53,7 +53,7 @@ $entity->createAdditionalIndexes();
 
 Связи вычисляются автоматически относительно полей типа `\Bitrix\Main\ORM\Fields\Relations\Reference`.
 
-Для создания связей выполнить (вызывается в createDbTable()):
+Для создания связей выполнить:
 
 ```php
 $entity = SampleTable::getEntity();
