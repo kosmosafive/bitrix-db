@@ -26,12 +26,11 @@ if (file_exists($vendorAutoload)) {
 
 ### Генерация запросов для пакетных операций с данными
 
-SqlHelper генерирует запросы с помощью следующих методов:
+Перед генерацией запросов может потребоваться предварительно загрузить карту таблицы.
 
-- prepareMergeByTableClass() — добавляет или обновляет одну запись
-- prepareMergeValuesByTableClass() — добавляет или обновляет несколько записей
-- prepareMergeSelectByTableClass() — добавляет или обновляет из подзапроса
-- prepareMergeMultipleByTableClass() — полностью заменяет записи
+```php
+SampleTable::getMap();
+```
 
 ### Индексы
 
