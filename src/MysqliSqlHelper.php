@@ -4,13 +4,17 @@ declare(strict_types=1);
 
 namespace Kosmosafive\Bitrix\DB;
 
+use Bitrix\Main\ArgumentException;
 use Bitrix\Main\ArgumentTypeException;
 use Bitrix\Main\DB;
 use Bitrix\Main\ObjectException;
+use Bitrix\Main\ORM\Data\DataManager as BitrixDataManager;
 use Bitrix\Main\ORM\Fields\ScalarField;
 use Bitrix\Main\ORM\Fields\Validators;
 use Bitrix\Main\SystemException;
 use Bitrix\Main\Type;
+use InvalidArgumentException;
+use Kosmosafive\Bitrix\DB\ORM\Data\DataManager;
 
 class MysqliSqlHelper extends DB\MysqliSqlHelper
 {
@@ -91,5 +95,64 @@ class MysqliSqlHelper extends DB\MysqliSqlHelper
         }
 
         return parent::getColumnTypeByField($field);
+    }
+
+    /**
+     * @param class-string<BitrixDataManager> $tableClass
+     */
+    public function prepareMergeByTableClass(string $tableClass, array $primaryFields, array $insertFields, array $updateFields)
+    {
+        $this->loadTableMap($tableClass);
+
+        return $this->prepareMerge($tableClass::getTableName(), $primaryFields, $insertFields, $updateFields);
+    }
+
+    /**
+     * @param class-string<BitrixDataManager> $tableClass
+     *
+     * @throws ArgumentException
+     */
+    public function prepareMergeValuesByTableClass(string $tableClass, array $primaryFields, array $insertRows, array $updateFields = []): string
+    {
+        $this->loadTableMap($tableClass);
+
+        return $this->prepareMergeValues($tableClass::getTableName(), $primaryFields, $insertRows, $updateFields);
+    }
+
+    /**
+     * @param class-string<BitrixDataManager> $tableClass
+     */
+    public function prepareMergeSelectByTableClass(string $tableClass, array $primaryFields, array $selectFields, $select, $updateFields)
+    {
+        $this->loadTableMap($tableClass);
+
+        return $this->prepareMergeSelect(
+            $tableClass::getTableName(),
+            $primaryFields,
+            $selectFields,
+            $select,
+            $updateFields
+        );
+    }
+
+    /**
+     * @param class-string<BitrixDataManager> $tableClass
+     */
+    public function prepareMergeMultipleByTableClass(string $tableClass, array $primaryFields, array $insertRows)
+    {
+        $this->loadTableMap($tableClass);
+
+        return $this->prepareMergeMultiple($tableClass::getTableName(), $primaryFields, $insertRows);
+    }
+
+    protected function loadTableMap(string $tableClass): void
+    {
+        if (!is_subclass_of($tableClass, BitrixDataManager::class)) {
+            throw new InvalidArgumentException($tableClass . " not implement " . BitrixDataManager::class);
+        }
+
+        if (is_subclass_of($tableClass, DataManager::class)) {
+            $tableClass::getMap();
+        }
     }
 }

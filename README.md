@@ -24,6 +24,15 @@ if (file_exists($vendorAutoload)) {
 
 В качества класса DataManager используется `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`.
 
+### Генерация запросов для пакетных операций с данными
+
+SqlHelper генерирует запросы с помощью следующих методов:
+
+- prepareMergeByTableClass() — добавляет или обновляет одну запись
+- prepareMergeValuesByTableClass() — добавляет или обновляет несколько записей
+- prepareMergeSelectByTableClass() — добавляет или обновляет из подзапроса
+- prepareMergeMultipleByTableClass() — полностью заменяет записи
+
 ### Индексы
 
 В классе, описывающем таблицу (наследник `Kosmosafive\Bitrix\DB\ORM\Data\DataManager`), 
