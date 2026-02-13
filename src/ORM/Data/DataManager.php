@@ -9,6 +9,7 @@ use Bitrix\Main\ORM\Data\AddResult;
 use Bitrix\Main\ORM\Data\DataManager as BaseDataManager;
 use Bitrix\Main\ORM\EntityError;
 use Bitrix\Main\ORM\Fields\FieldTypeMask;
+use Bitrix\Main\ORM\Fields\IntegerField;
 use Bitrix\Main\ORM\Objectify\Values;
 use Kosmosafive\Bitrix\DB\MappableInterface;
 use Kosmosafive\Bitrix\DB\ORM\Entity;
@@ -116,12 +117,12 @@ abstract class DataManager extends BaseDataManager
                 else
                 {
                     $field = $entity->getField('ID');
-                    if ($field instanceof UuidField) {
-                        static::normalizePrimary($primary, $fields);
-                    } else {
+                    if ($field instanceof IntegerField) {
                         // for those who did not set 'autocomplete' flag but wants to get id from result
                         $primary = array('ID' => $id);
                         $isGuessedPrimary = true;
+                    } else {
+                        static::normalizePrimary($primary, $fields);
                     }
                 }
             }
