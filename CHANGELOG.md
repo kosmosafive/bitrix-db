@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.2.0 (2026-02-13)
+
+* non-primary autoincrement field
+
 ## 2.0.1 (2025-11-25)
 
 * char field
