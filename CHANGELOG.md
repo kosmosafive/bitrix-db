@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.3.0 (2026-03-05)
+
+* decimal field
+
 ## 2.2.0 (2026-02-13)
 
 * non-primary autoincrement field
