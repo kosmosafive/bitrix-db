@@ -179,6 +179,12 @@ SampleTable::query()
     ->where('ID', $uuid);
 ```
 
+#### Decimal
+
+`Kosmosafive\Bitrix\DB\ORM\Fields\DecimalField`
+
+Точное числовое значение. В отличие от оригинального поля не приводит к float.
+
 ## Миграция
 
 * [Миграция с 1.x на 2.0](doc/migration/2.0.md)
